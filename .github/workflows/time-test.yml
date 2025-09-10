@@ -14,6 +14,8 @@ jobs:
           NOW_TIMESTAMP=$(date +%s);
           if (( NOW_TIMESTAMP - LAST_COMMIT_TIMESTAMP < 1800 )); then
             echo "not allowed";
+            exit 1;
           else
             echo "YES allowed";
+            exit 0;
           fi;

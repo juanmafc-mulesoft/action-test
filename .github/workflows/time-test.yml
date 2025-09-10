@@ -1,5 +1,9 @@
 name: Check last master commit 
-on: [pull_request]
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
 jobs:
   check-time:
     name: Check if last commit was 30 minutes ago or more

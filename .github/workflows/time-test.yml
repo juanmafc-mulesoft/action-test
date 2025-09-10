@@ -5,7 +5,9 @@ jobs:
     name: Check if last commit was 30 minutes ago or more
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5 
+        with:
+          fetch-depth: 0
       - name: Check last commit time
         run: |
           LAST_COMMIT_TIMESTAMP=$(git show -s --format=%ct origin/main);

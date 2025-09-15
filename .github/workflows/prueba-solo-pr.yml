@@ -5,7 +5,7 @@ on:
     types: [ opened, synchronize, closed ]
 jobs:
   check-time:
-    name: Check if last commit was 30 minutes ago or more
+    name: SOLO PARA PRs Check if last commit was 30 minutes ago or more
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5 

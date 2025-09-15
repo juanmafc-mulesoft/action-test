@@ -17,9 +17,8 @@ jobs:
           LAST_COMMIT_TIMESTAMP=$(git show -s --format=%ct origin/main);
           NOW_TIMESTAMP=$(date +%s);
           if (( NOW_TIMESTAMP - LAST_COMMIT_TIMESTAMP < 120 )); then
-            echo "not allowed";
+            echo "A commit to master was done less than 30 minutes ago";
             exit 1;
           else
-            echo "YES allowed";
             exit 0;
           fi;

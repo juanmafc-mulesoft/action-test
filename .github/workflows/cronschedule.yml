@@ -21,6 +21,8 @@ jobs:
             const { owner, repo } = context.repo;
             const prs = await github.paginate(github.rest.pulls.list, { owner, repo, state: "open" });
 
+            console.log(prs)
+
             for (const pr of prs) {
               await github.rest.actions.createWorkflowDispatch({
                 owner,

@@ -4,6 +4,8 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
+  schedule:
+     - cron: "7 * * * *"
 jobs:
   check-time:
     name: Check if last commit was 30 minutes ago or more

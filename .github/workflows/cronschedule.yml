@@ -1,0 +1,32 @@
+name: PR keepalive (dispatch)
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "*/7 * * * *"
+
+permissions:
+  actions: write
+  pull-requests: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger pr-check.yml for each open same-repo PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflowFile = "time-test.yml"; // your PR workflow filename
+            const { owner, repo } = context.repo;
+            const prs = await github.paginate(github.rest.pulls.list, { owner, repo, state: "open" });
+
+            for (const pr of prs) {
+              await github.rest.actions.createWorkflowDispatch({
+                owner,
+                repo,
+                workflow_id: workflowFile,
+                ref: pr.head.ref, // branch name
+                inputs: {}
+              });
+            }

@@ -25,11 +25,13 @@ jobs:
             console.log(prs)
 
             for (const pr of prs) {
-              await github.rest.actions.createWorkflowDispatch({
-                owner,
+              const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
+                owner, 
                 repo,
-                workflow_id: workflowFile,
-                ref: pr.head.ref, // branch name
-                inputs: {}
+                event: "pull_request"
               });
+              const run = runs.find(r => r.head_sha === pr.head.sha);
+              if (run && !(["in_progress","queued"].includes(run.status))) {
+                await github.rest.actions.reRunWorkflow({ owner, repo, run_id: run.id });
+              }
             }

@@ -19,7 +19,7 @@ jobs:
           NOW_TIMESTAMP=$(date +%s);
           if (( NOW_TIMESTAMP - LAST_COMMIT_TIMESTAMP < 900 )); then
             echo "A commit to master was done less than 30 minutes ago";
-            date -d @$LAST_COMMIT_TIMESTAM
+            date -d @$LAST_COMMIT_TIMESTAMP;
             date -r $LAST_COMMIT_TIMESTAMP;
             exit 1;
           else
